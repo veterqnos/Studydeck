@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <title>AI Quiz Results</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 60px 40px;
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .results-header {
+            margin-bottom: 40px;
+        }
+
+        .results-title {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-type {
+            font-size: 1.5rem;
+            color: #666;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .score-container {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .score-text {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .score-number {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #43e97b;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .score-total {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .performance-message {
+            font-size: 1.3rem;
+            color: #333;
+            margin: 30px 0;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .home-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .home-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .celebration {
+            font-size: 2rem;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+                margin: 10px;
+            }
+
+            .results-title {
+                font-size: 2.5rem;
+            }
+
+            .score-number {
+                font-size: 3rem;
+            }
+
+            .score-text {
+                font-size: 1.5rem;
+            }
+
+            .performance-message {
+                font-size: 1.1rem;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .score-container {
+            animation: pulse 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="results-header">
+            <h1 class="results-title">🎉 Results</h1>
+            <div class="quiz-type">AI Quiz</div>
+        </div>
+
+        <div class="score-container">
+            <div class="score-text">You answered</div>
+            <div class="score-number" id="resultsLabel">0</div>
+            <div class="score-total">out of 15 questions correctly!</div>
+        </div>
+
+        <div class="performance-message" id="performanceMessage">
+            Great job! Keep learning and improving your AI knowledge!
+        </div>
+
+        <a href="../flashycard.html" class="home-button">
+            Back to Home
+        </a>
+    </div>
+
+    <script src="results1.js"></script>
+    <script>
+        // Add performance message based on score
+        document.addEventListener('DOMContentLoaded', function() {
+            const scoreElement = document.getElementById('resultsLabel');
+            const performanceElement = document.getElementById('performanceMessage');
+            
+            // Wait a bit for the score to be loaded by results1.js
+            setTimeout(() => {
+                const score = parseInt(scoreElement.textContent) || 0;
+                let message = '';
+                
+                if (score >= 13) {
+                    message = 'Excellent!';
+                } else if (score >= 10) {
+                    message = 'Good job!';
+                } else if (score >= 7) {
+                    message = 'Not bad!';
+                } else {
+                    message = 'Everyone was a beginner someday!';
+                }
+                
+                performanceElement.textContent = message;
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>
